@@ -21,10 +21,8 @@ end
 
 eltA = conv(1,1); eltB = conv(1,2);
 combine_A = 0; combine_B = 0;
-conv = conv
 
-for i = 1:size(conv_Array)
-    conv_Array(i)
+for i = 1:size(conv_Array, 2)
     if (combine_A ~= 0 && combine_B ~= 0)
         break;
     elseif (includes(conv_Array(i), eltA) && includes(conv_Array(i), eltB))
@@ -37,20 +35,23 @@ for i = 1:size(conv_Array)
     end
 end
 
-combine_A
-combine_B
-
 if (combine_A > 0 && combine_B > 0)
-    1
+    size(conv_Array, 2)
     new_array = conv_Array(1, combine_A).combine(conv_Array(1, combine_B));
-    conv_Array(1, combine_A) = []; conv_Array(1, combine_B) = [];
+    if (combine_B < combine_A)
+        conv_Array(combine_A) = []; conv_Array(combine_B) = [];
+    elseif (combine_A < combine_B)
+        conv_Array(combine_B) = []; conv_Array(combine_A) = [];
+    end
     conv_Array = [conv_Array, new_array];
 elseif (combine_A == 0 && combine_B > 0)
     2
-    conv_Array(combine_B) = conv_Array(combine_B).add(eltA);
+    conv_Array(combine_B).value
+    conv_Array(combine_B) = conv_Array(combine_B).add(eltB); %reversed
 elseif (combine_B == 0 && combine_A > 0)
     3
-    conv_Array(combine_A) = conv_Array(combine_A).add(eltB);
+    conv_Array(combine_A).value
+    conv_Array(combine_A) = conv_Array(combine_A).add(eltA);
 elseif (combine_A == -1 && combine_B == -1)
     4
 else
