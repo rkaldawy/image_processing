@@ -153,17 +153,19 @@ for i = start:step:stop                     % read images in the consequtive ord
                     end
                 end
             end
-                   
-%             for r = 1:2:row_num
-%                 for c = 1:2:col_num 
-%                     if (~isequal(obs_Array(r:r+1,c:c+1), zeros(2, 2)))
-%                         obs_Array = 
-%                     end
-%                 end
-%             end
-
+            
+            for r = 1:2:row_num
+                for c = 1:2:col_num
+                    if (~isequal(obs_Array(r:r+1,c:c+1), zeros(2, 2)))
+                        obj_array = connect_objects(r, c, obs_Array, conv_Array);
+                    end
+                end
+            end
+            
             obs_Array
-            conv_Array
+            
+            %filename = 'testdata.xlsx';
+            %xlswrite(filename, obj_array);
             
              for j = 1:size(conv_Array, 2)
                 print = conv_Array(1, j).value
