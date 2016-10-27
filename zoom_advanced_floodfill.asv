@@ -9,9 +9,9 @@ Y = [];                                     % Y co-ordinates of the nodes
 Z = [];                                     % Z co-ordinates of the nodes
 inc             = 0.33*3;                   % vertical image spacing in mm
 ZERONUMBER      = 1152;                     % image # with z = 0
-start           = 1213;                     % initial image #
-stop            = 1221;                     % final image #
-step            = 2;                        % read images in steps
+start           = 1191;                     % initial image #
+stop            = 1192;                     % final image #
+step            = 1;                        % read images in steps
 crop            = 1.0;                      % cropping selected
 Nint            = 0;                        % number of interpolation steps - xy plane is 2^Nint
 NintZ           = 0;                        % number of interpolation steps - z direction
@@ -104,6 +104,14 @@ for i = start:step:stop                     % read images in the consequtive ord
             
         elseif val == 122
             
+            test = Array;
+            test.value = [1,2,3,4,5];
+            check1 = includes(test, 2)
+            check2 = includes(test, 6)
+            new_check = test.add(6);
+            new_check.value
+            
+            
             h2 = imrect
             pos = getPosition(h2);
             delete(h2);
@@ -137,29 +145,27 @@ for i = start:step:stop                     % read images in the consequtive ord
                     if (isequal(obs_Array(r:r+1,c:c+1), zeros(2, 2)))
                         obs_Array = flood_fill(colorInfo, img, bounds, r, c, count, obs_Array);
                         if (obs_Array(r, c+1) ~= 0)
-                            conv_Array = check_connections(r, c, obs_Array, conv_Array) %find the connected objects
-                                         for j = 1:size(conv_Array, 2)
-                print = conv_Array(1, j).value
-             end
-                        end
-                        
+                            conv_Array = check_connections(r, c, obs_Array, conv_Array); %find the connected objects
+                        end 
                         if (obs_Array(r, c+1) == count)
                             count = count + 1; %move to next new object
                         end
                     end
                 end
             end
-                   
-%             for r = 1:2:row_num
-%                 for c = 1:2:col_num 
-%                     if (~isequal(obs_Array(r:r+1,c:c+1), zeros(2, 2)))
-%                         obs_Array = 
-%                     end
-%                 end
-%             end
-
+            
+            for r = 1:2:row_num
+                for c = 1:2:col_num
+                    %if (~isequal(obs_Array(r:r+1,c:c+1), zeros(2, 2)))
+                        obs_Array = connect_objects(r, c, obs_Array, conv_Array);
+                    %end
+                end
+            end
+            
             obs_Array
-            conv_Array
+            
+            filename = 'testdata.xlsx';
+            xlswrite(filename, obs_Array);
             
              for j = 1:size(conv_Array, 2)
                 print = conv_Array(1, j).value
@@ -177,19 +183,6 @@ for i = start:step:stop                     % read images in the consequtive ord
 %                 end
 %             end
             
-%              xround = round((x + Xsize/2)/(0.33*crop))
-%              yround = round((Ysize - (y + Ysize/2))/(0.33*crop))
-%             pxl = [xround, yround];
-%             pxl_array = [pxl.'];
-%             total_pxl = [88];
-%             
-%             for pCt = 1:size(total_pxl, 2)
-%                 hold on;
-%                 x_in = total_pxl(1, pCt); y_in = total_pxl(2, pCt);
-%                 x = (x_in * (0.33*crop)) - (Xsize/2);
-%                 y = (Ysize/2) - (y_in * (0.33 * crop));
-%                 plot(x, y , 'g+');
-%             end
         end
     end
     %   Interpolation for one slice (inserting intermediate points)
