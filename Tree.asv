@@ -52,7 +52,6 @@ classdef Tree
             end
         end
         function elt = get_first(obj)
-            elt = obj.value;
-        end
+            
     end
 end

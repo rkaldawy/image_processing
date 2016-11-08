@@ -166,10 +166,10 @@ for i = start:step:stop                     % read images in the consequtive ord
             
             filename = 'testdata.xlsx';
             xlswrite(filename, obs_Array);
-            
-             for j = 1:size(conv_Array, 2)
-                print = conv_Array(1, j).value
-             end
+%             
+%              for j = 1:size(conv_Array, 2)
+%                 print = conv_Array(1, j).value
+%              end
             
 %             for r = 1:2:row_num
 %                 for c = 1:2:col_num

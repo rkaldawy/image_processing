@@ -55,15 +55,15 @@ elseif (combine_A == -1 && combine_B == -1)
 else
 %     the only thing that changes for abstraction
 
-% new_tree = Tree;
-% new_tree = createNewTree(new_tree, eltA);
-% new_tree = add(new_tree, eltB);
-% conv_Array = [conv_Array, new_tree];
+new_tree = Tree;
+new_tree = createNewTree(eltA);
+new_tree = addElt(new_tree, eltB);
+conv_Arr
     
-    new_array = Array; new_array.value = [];
-    new_array = new_array.add(eltA); 
-    new_array = new_array.add(eltB);
-    conv_Array = [conv_Array, new_array];
+%     new_array = Array; new_array.value = [];
+%     new_array = new_array.add(eltA); 
+%     new_array = new_array.add(eltB);
+%     conv_Array = [conv_Array, new_array];
 end
 
 f = conv_Array;

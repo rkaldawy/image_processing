@@ -23,7 +23,7 @@ classdef Array
            obj.value = newValue;
         end
         function elt = get_first(obj)
-            elt = obj.value(1)
+            elt = obj.value(1);
         end
     end
 end
